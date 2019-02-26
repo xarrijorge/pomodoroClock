@@ -1,57 +1,25 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+/* eslint-disable no-unused-expressions */
 
-import "./styles.css";
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 
-const Controls = props => {
-  return (
-    <div className="controls">
-      <span tabIndex={2} onMouseDown={props.decTimer}>
-        -
-      </span>
-      <span tabIndex={3} onMouseDown={props.incTimer}>
-        +
-      </span>
-      <span tabIndex={4} onClick={props.reset} id="reset">
-        Reset
-      </span>
-    </div>
-  );
-};
-const Timer = props => {
-  let minutes = Math.floor(props.timer / 60);
-  let seconds = props.timer % 60;
-  return (
-    <div className="timer">
-      {`${minutes}:${seconds}`}
-      {!props.active ? (
-        <i
-          tabIndex={1}
-          onClick={props.handlePlay}
-          className="far fa-play-circle"
-        />
-      ) : (
-        <i
-          tabIndex={1}
-          onClick={props.handlePause}
-          className="far fa-pause-circle"
-        />
-      )}
-    </div>
-  );
-};
+import './styles.css';
+
+import Timer from './Components/Timer';
+import Controls from './Components/Controls';
+
 class App extends Component {
   state = {
     time: 25,
     active: false,
-    intervalID: ""
+    intervalID: '',
   };
 
   clock = this.state.time * 60;
   tick = () => {
     this.state.time > 0
       ? this.setState({
-          time: this.state.time - 1
+          time: this.state.time - 1,
         })
       : null;
   };
@@ -59,21 +27,21 @@ class App extends Component {
   playButton = () => {
     this.setState({
       intervalID: setInterval(() => this.tick(), 1000),
-      active: !this.state.active
+      active: !this.state.active,
     });
   };
 
   pauseButton = () => {
     clearInterval(this.state.intervalID);
     this.setState({
-      active: !this.state.active
+      active: !this.state.active,
     });
   };
   reset = () => {
     clearInterval(this.state.interavlID);
     this.setState({
       time: 1500,
-      active: false
+      active: false,
     });
   };
   decTimer = () => {
@@ -81,7 +49,7 @@ class App extends Component {
     this.state.time > 300
       ? this.setState({
           time: this.state.time - 60,
-          active: false
+          active: false,
         })
       : null;
   };
@@ -90,7 +58,7 @@ class App extends Component {
     this.state.time < 3600
       ? this.setState({
           time: this.state.time + 60,
-          active: false
+          active: false,
         })
       : null;
   };
@@ -98,12 +66,12 @@ class App extends Component {
   /////////////////////////////////////////////////////////////////
   componentDidMount() {
     this.setState({
-      time: this.state.time * 60
+      time: this.state.time * 60,
     });
   }
 
   render() {
-    if (this.state.time == 0) {
+    if (this.state.time === 0) {
       clearInterval(this.state.interavlID);
     }
     return (
@@ -130,5 +98,5 @@ class App extends Component {
   }
 }
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
